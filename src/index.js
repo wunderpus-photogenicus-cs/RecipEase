@@ -4,5 +4,6 @@ import App from "./App";
 import "./App.scss";
 
 const el = document.getElementById("app");
+const root = createRoot(el);
+root.render(<App tab="home" />);
 
-ReactDOM.render(<App />, el);
