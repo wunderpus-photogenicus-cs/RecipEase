@@ -38,9 +38,6 @@ const Landing = () => {
             <div id="NavBar'">
                 <NavBar />
             </div>
-
-            <button onClick = {() => navigate('/cart')}> Navigate to cartPage </button>
-            <button onClick = {() => navigate('/favorites')}> Navigate to favoritesPage </button>
         </div>
     );
 };
