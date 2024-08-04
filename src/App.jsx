@@ -19,3 +19,24 @@ const App = () => {
 };
 
 export default App;
+
+
+
+// inheritance here
+/* 
+RecipEase
+|- dist
+|- frontend
+|- node_modules
+|- server
+|- src
+  |-pages
+    |- Landing.jsx
+    |- Landing.scss
+    |- recipePage.jsx
+  |- App.scss
+  |- index.html
+  |- index.js
+|-.babelrc
+|-.package.json
+*/

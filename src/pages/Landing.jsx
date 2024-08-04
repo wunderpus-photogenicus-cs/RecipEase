@@ -8,7 +8,7 @@ const Landing = () => {
   const navigate = useNavigate();
     //reroute to page
   const handleNavigateClick = () => {
-    navigate(`/${/*form submission*/}`);
+    // navigate(`/${/*form submission*/}`);
   }
     
   const { flag, setFlag } = useState(0);
