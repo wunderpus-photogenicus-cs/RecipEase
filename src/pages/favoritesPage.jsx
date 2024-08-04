@@ -5,11 +5,17 @@ const favoritesPage = () => {
     const [favorites, setFavorites] = useState([]);
 
     useEffect (() => {
-        // getting 'favorites' from logic from landing page and store in local storage
-        const localFavorites = localStorage.getItem('favorites');
 
-        // if favorites exist and not null||undefined , parse the data 
-        if (localFavorites) setFavorites(JSON.parse(localFavorites))
+        const fetchFavorites = async () => {
+            try{
+                const res = await fetch('/api/user/favorites')
+                const data = await res.json();
+                setFavorites(data.favorites)
+            } catch (error) {
+                console.error('error fetchFavorites in favoritePage.jsx', error)
+            }
+        } 
+        fetchFavorites();
 
     }, []) // default an empty array so it only runs once
 
@@ -18,17 +24,30 @@ const favoritesPage = () => {
         <h1>
             Favorites
         </h1>
-        {/* mapping favorite recipe with key = id, label and ingredients from 
-        the dummy database and display in a div */}
-        {favorites.map((recipe) => (
-            <div key = {recipe.id}>
-                <div>{recipe.label}</div>
-                <div>{recipe.ingredients}</div>
+        {favorites.map((recipe) =>  {     
+        const ingredients = [];
+        for (let i = 1; i <= 10; i++) {
+            const ingredient = recipe[`strIngredient${i}`];
+            const measure = recipe[`strMeasure${i}`]
+            if (ingredient) {
+                ingredients.push(`${ingredient} - ${measure}`)
+            }
+          }
+
+          return (
+            <div key = {recipe.idMeal}>
+                <div>{recipe.strMeal}</div>
+                <ul>
+                    {ingredients.map((item, index) => (
+                        <li key = {index}> {item} </li>
+                    ))}
+                </ul>
             </div>
-        ))}
+          );
+        })}
     
     </div>
-  )
-}
+  );
+};
 
 export default favoritesPage
