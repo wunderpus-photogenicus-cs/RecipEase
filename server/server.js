@@ -53,14 +53,19 @@ app.use(express.static(path.resolve(__dirname, '../dist/index.html')))
 // Get all recipes and insert into DB 
 // http: //localhost:3000/
 
-// obtain all recipes and insert into collectin: recipes inside Database: recipease
+// obtain all recipes and insert into collection: recipes inside Database: recipease
 app.get('/', recipesController.getAllRecipes, (req, res) => {
     recipesDB.insertMany(res.locals.data);
     return res.status(200).json(res.locals.data);
 })
 
+// send all the recipes from the collection
 app.get('/api/recipes', (req , res) => {
-    
+    console.log('sending recipes...')
+    console.log(recipesDB);
+    recipesDB.find({}).exec()
+    .then(data => res.status(200).json(data))
+    .catch(err => next(err))
 })
 // app.get('/', recipeController.getRecipe, (req, res) => {
 //     console.log('we are in server');
