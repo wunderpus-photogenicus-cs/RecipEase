@@ -1,24 +1,47 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import {useParams} from 'react-router-dom'
 
 //add this page to the landing page ... import recipePage from './recipePage'
 
-const recipePage = ({props}) => {
-    //passing prop from landing page / rename props to another as needed for initial and useState
+const recipePage = () => {
+  
+  const {id} = useParams(); // using id from url <recipe/:id>
+  const [recipe, setRecipe] = useState(null);
 
-    /* assuming we have the structure of recipe schema 
-     recipe = {
+  useEffect (() => {
+    const fetchRecipe = async () => {
+      try {
+        const res = await fetch('/api/recipes/${id}')
+  
+        const data = await response.json();
+        setRecipe(data.recipe);
+      }
+  
+      catch (error) {
+        console.error('Error fetching in recipePage.jsx', error)
+      }
+    };
 
-     id: 1
-     name: 'Mac and Cheese'
-     description: 'blah blah blah'
-     
-     }
-    */
+    fetchRecipe();
+  },[id])
+
   return (
     <div className= "recipe-page">
-        {/* adding name and description on page*/}
-        <h1> {props.name}</h1>
-        <p>{props.description} </p>
+        
+        <h1> {recipe.strMeal}</h1>
+        <p>{recipe.strInstructions} </p>
+        <h2> Ingredients: </h2>
+        <ul> 
+          {(() => {
+            const ingredient  = recipe[`strIngredient${i}`];
+            const measure = recipe[`strMeasure${i}`];
+            if (ingredient) {
+              ingredient.push(<li key = {i}> {ingredient} {measure}</li>)
+            }
+          }
+          )}
+
+        </ul>
     </div>
   )
 }
