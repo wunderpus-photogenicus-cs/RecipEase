@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 const user = new Schema({
     //what info do we want stored? 
-    userId: {type: Number, required: true},
-    favRecipe: {type: String, required: true},
+    //
+    favRecipe: {type: String, required: true}, //make idMeal a key within this object
     idMeal: {},
     
 

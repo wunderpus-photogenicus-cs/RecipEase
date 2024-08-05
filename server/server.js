@@ -24,15 +24,13 @@ mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   // sets the name of the DB that our collections are part of
-  dbName: 'All Recipes'
+  dbName: 'recipease'
 })
   .then(() => {
     console.log('Connected to Mongo DB.');
     //call your function that fetches from 3rd party api declared in recipesController.js(?)
 })
   .catch(err => console.log(err));
-
-console.log('we are in server');
 
   /**
  * handle parsing request body
@@ -48,17 +46,22 @@ app.use(express.urlencoded({ extended: true }));
 /**
  * handle requests for static files
  */
-app.use(express.static(path.resolve(__dirname, '../dist')))
+app.use(express.static(path.resolve(__dirname, '../dist/index.html')))
 /**
  * define route handlers
  */
-// Get all recipes and insert into DB
+// Get all recipes and insert into DB 
 // http: //localhost:3000/
 
-app.get('/', (req, res) => {
-    return res.status(200).send('Hello World1');
+// obtain all recipes and insert into collectin: recipes inside Database: recipease
+app.get('/', recipesController.getAllRecipes, (req, res) => {
+    recipesDB.insertMany(res.locals.data);
+    return res.status(200).json(res.locals.data);
 })
 
+app.get('/api/recipes', (req , res) => {
+    
+})
 // app.get('/', recipeController.getRecipe, (req, res) => {
 //     console.log('we are in server');
 //     return res.status(200).json(res.locals);
