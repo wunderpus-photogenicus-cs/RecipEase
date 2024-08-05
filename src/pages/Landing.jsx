@@ -8,26 +8,28 @@ import { Autocomplete, TextField } from '@mui/material';
 
 const Landing = ({handleSetRecipeId}) => {
         //dummy data
-        const recipeOptions = [
-        {idMeal: 1, strMeal: "Pizza"},
-        {idMeal: 2, strMeal: "Spaghetti"},
-        {idMeal: 3, strMeal: "Mac and Cheese"}
-        ];
+        // const recipeOptions = [
+        // {idMeal: 1, strMeal: "Pizza"},
+        // {idMeal: 2, strMeal: "Spaghetti"},
+        // {idMeal: 3, strMeal: "Mac and Cheese"}
+        // ];
 
     //make fetch to api to populate an array of all meal names and meal id
-    // const recipeOptions = [];
-    // const fetchRecipes = async () => {
-    //     try{
-    //         const res = await fetch('/api/recipes');
-    //         const data = await res.json();
-    //         data.meals.map(({idMeal, strMeal}) => {
-    //             recipeOptions.push({idMeal: idMeal, strMeal: strMeal})
-    //         })
-    //     } catch (err) {
-    //         console.error('Error fetching recipe options', err);
-    //     }
-    // }
-    // fetchRecipes();
+    const recipeOptions = [];
+    const fetchRecipes = async () => {
+        try{
+            const res = await fetch('/api/recipes', {url: 'http://localhost:3000'});
+            console.log('response from fetch: ', res);
+            const data = await res.json();
+            console.log('res.json data', data);
+            data.meals.map(({idMeal, strMeal}) => {
+                recipeOptions.push({idMeal: idMeal, strMeal: strMeal})
+            })
+        } catch (err) {
+            console.error('Error fetching recipe options', err);
+        }
+    }
+    fetchRecipes();
     
     //mealNames is going to be the options in the autocomplete/dropdown menu
     const mealNames = recipeOptions.map(option => option.strMeal);
@@ -46,8 +48,8 @@ const Landing = ({handleSetRecipeId}) => {
             //insert conditional if searchTerm is null
             element.strMeal === searchTerm);
         console.log('The recipe object is: ', recipeObj);
-        const recipeId = recipeObj.idMeal;
-        console.log('The recipe id is: ', recipeId);
+        // const recipeId = recipeObj.idMeal;
+        // console.log('The recipe id is: ', recipeId);
 
         // useEffect(() => {
         //     const handleNavigate = () => {
