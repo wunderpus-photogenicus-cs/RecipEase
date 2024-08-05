@@ -8,7 +8,7 @@ const cartPage = () => {
         
         const fetchCart = async () => {
             try {
-                const res = await fetch(`/api/user/${userId}/cart`)
+                const res = await fetch(`/api/user/cart`)
                 const data = await res.json();
                 setCart(data.cart || [])
             } catch (error) {
