@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -5,6 +6,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing.jsx';
 import cartPage from './pages/cartPage';
 import favoritesPage from './pages/favoritesPage';
+=======
+import React from "react";
+// import router here?
+import cartPage from './pages/cartPage'
+import favoritesPage from './pages/favoritesPage'
+>>>>>>> dev
 import recipePage from "./pages/recipePage";
 
 const App = () => {
@@ -19,6 +26,7 @@ const App = () => {
   return (
     <div>
       <h1>Hello React</h1>
+<<<<<<< HEAD
         <BrowserRouter>
             <Routes>
                 <Route path = '/' element = {<Landing handleSetRecipeId={handleSetRecipeId} />} />
@@ -27,6 +35,14 @@ const App = () => {
                 <Route path = '/recipe/:id' element = {<recipePage />} /> 
             </Routes>
       </BrowserRouter>
+=======
+{/* 
+      <Route path = '/' element = {<Landing />} />
+      <Route path = '/cart' element = {<cartPage />} /> 
+      <Route path = '/favorites' element = {<favoritesPage />} /> 
+      <Route path = '/recipe/:id' element = {<recipePage />} />   */}
+      
+>>>>>>> dev
     </div>
   );
 };
@@ -34,6 +50,7 @@ const App = () => {
 export default App;
 
 
+<<<<<<< HEAD
 /*
 const [recipeUrl, setRecipeUrl] = useState('');
 
@@ -55,3 +72,24 @@ const App = () => {
     );
 };
 */
+=======
+
+// inheritance here
+/* 
+RecipEase
+|- dist
+|- frontend
+|- node_modules
+|- server
+|- src
+  |-pages
+    |- Landing.jsx
+    |- Landing.scss
+    |- recipePage.jsx
+  |- App.scss
+  |- index.html
+  |- index.js
+|-.babelrc
+|-.package.json
+*/
+>>>>>>> dev
