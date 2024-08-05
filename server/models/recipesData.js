@@ -1,11 +1,9 @@
-//from the 3rd party API 
-//schema (look into whether it must match or... )
 // API: https://www.themealdb.com/api.php
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recipe = new Schema({
-    idMeal: {type: Number, required: true},
+    idMeal: {type: Number, required: true, unique: true},
     strMeal: {type: String, required: true},
     strDrinkAlternate: {type: String},
     strCategory: {type: String},
