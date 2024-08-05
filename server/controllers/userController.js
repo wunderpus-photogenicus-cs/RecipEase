@@ -1,6 +1,6 @@
 //middleware functions go here
-const User = require('./models/userData');
-
+// const User = require('./models/userData');
+//to get the cart
 const UserController = {
     
 };

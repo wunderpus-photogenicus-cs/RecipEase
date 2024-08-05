@@ -1,11 +1,19 @@
 //from the 3rd party API 
 //schema (look into whether it must match or... )
+// API: https://www.themealdb.com/api.php
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recipe = new Schema({
     idMeal: {type: Number, required: true},
     strMeal: {type: String, required: true},
+    strDrinkAlternate: {type: String},
+    strCategory: {type: String},
+    strArea: {type: String},
+    strInstructions: {type: String},
+    strMealThumb: {type: String},
+    strTags: {type: String},
+    strYoutube: {type: String},
     strIngredient1: {type: String},
     strIngredient2: {type: String},
     strIngredient3: {type: String},
@@ -46,6 +54,10 @@ const recipe = new Schema({
     strMeasure18: {type: String},
     strMeasure19: {type: String},
     strMeasure20: {type: String},
+    strSource: {type: String},
+    strImageSource: {type: String},
+    strCreativeCommonsConfirmed: {type: String},
+    dateModified: {type: String}
 });
 
 module.exports = mongoose.model('Recipes', recipe);

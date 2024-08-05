@@ -9,10 +9,16 @@ import favoritesPage from './pages/favoritesPage';
 =======
 import React from "react";
 // import router here?
+<<<<<<< HEAD
 import cartPage from './pages/cartPage'
 import favoritesPage from './pages/favoritesPage'
 >>>>>>> dev
 import recipePage from "./pages/recipePage";
+=======
+// import cartPage from './pages/cartPage'
+// import favoritesPage from './pages/favoritesPage'
+// import recipePage from "./pages/recipePage";
+>>>>>>> dev
 
 const App = () => {
     const [recipeId, setRecipeId] = useState('');
@@ -81,6 +87,13 @@ RecipEase
 |- frontend
 |- node_modules
 |- server
+  |-controllers
+    |-receipesController.js
+    |-userController.js
+  |-models
+    |-recipesData.js
+    |-userData.js
+  |-server.js
 |- src
   |-pages
     |- Landing.jsx
