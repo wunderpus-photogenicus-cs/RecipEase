@@ -1,8 +1,13 @@
 //middleware functions go here
-const Recipe = require('./models/recipesData');
+// const Recipe = require('./models/recipesData');
 
-const RecipeController = {
+let recipeController = {};
 
-};
+recipeController.getRecipe = (req, res, next) => {
+    // do something 
+    // return next();
+    //destruct the request object
+    // const { idMeal, }
+}
 
-module.exports = RecipeController;
+module.exports = recipeController;
