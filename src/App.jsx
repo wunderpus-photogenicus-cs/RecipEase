@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import router here?
 import Landing from './pages/Landing.jsx';
-import cartPage from './pages/cartPage';
-import favoritesPage from './pages/favoritesPage';
-import recipePage from "./pages/recipePage";
+// import cartPage from './pages/cartPage';
+// import favoritesPage from './pages/favoritesPage';
+// import recipePage from "./pages/recipePage";
 
 
 const App = () => {
