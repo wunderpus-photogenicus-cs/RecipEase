@@ -1,66 +1,64 @@
-//middleware functions go here
-// const Recipe = require('./models/recipesData');
-// const fetch = require('node-fetch'); // Import node-fetch
-// import fetch from 'node-fetch';
+const Recipe = require('../models/recipesData.js'); // adjust the path as needed
+const axios = require('axios');
 
+const transformDataForDB = (data) => {
+    const transformedMeals = [];
 
-let recipeController = {};
+    for (let i = 0; i < data.meals.length; i++) {
+        const meal = data.meals[i];
+        const ingredients = [];
 
-recipeController.getAllRecipes = async (req, res, next) => {
-    try {
-        const urls = []; // will hold 26 fetch urls
-        for (let n = 0; n <= 25; n++) { // loop from a to z, create fetch urls to grab all dishes starting with each letter in the alphabet
-            chr = String.fromCharCode(97 + n);
-            const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${chr}`;
-            urls.push(url);
+        for (let j = 1; j <= 20; j++) {
+            const ingredient = meal[`strIngredient${j}`];
+            const measure = meal[`strMeasure${j}`];
+
+            if (ingredient && ingredient.trim() !== "") {
+                ingredients.push(measure + ' ' + ingredient);
+            }
         }
 
-        // map over all urls and complete all fetch req. using Promise.all
-        const fetchPromises = urls.map(url => fetch(url).then(response => response.json()));
-        const results = await Promise.all(fetchPromises);
+        const instructions = [];
+        const rawInstructions = meal.strInstructions.split('.');
+        for (let instruction of rawInstructions) {
+            const trimmedInstruction = instruction.trim();
+            if (trimmedInstruction) {
+                instructions.push(trimmedInstruction);
+            }
+        }
 
-        const allRecipes = results.flatMap(response => response.meals || []); // converts array of nested json objects into array of unnested json objects
-        console.log('Total recipes obtained: ', allRecipes.length);
-        res.locals.data = allRecipes;
-        return next();
-    } catch (err) {
-        return next({
-            log: `Error in recipeController.getRecipe: ${err}`,
-            status: 500,
-            message: { err: 'Was not able to find recipe' }
-        });
+        const transformedMeal = {
+            name: meal.strMeal,
+            catagory: meal.strCategory,
+            cuisine: meal.strArea,
+            picutre: meal.strMealThumb,
+            ingredients: ingredients,
+            instructions:instructions,
+            tags: meal.strTags ?meal.strTags.split(','):[],
+            youtubeLink: meal.strYoutube
+        };
+
+        transformedMeals.push(transformedMeal);
     }
 
-    //     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${chr}`)
-    //     .then((data) => {return data.json()})
-    //     .then((data) => {
-    //         console.log('hello')
-    //         results.push(data)
-    //     })
-    //     .catch(error => {
-    //     return next({
-    //         log: `Error in recipeController.getRecipe: ${error}`,
-    //         status: 500,
-    //         message: { err: 'Was not able to find recipe' }
-    //     });
-    // });
-    // await console.log(results);
-    // res.locals.allRecipes = await results;
-    // return await next();
-    // const results = [];
-    // fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${chr}`)
-    // .then((data) => {return data.json()})
-    // .then((data) => {
-    //     res.locals.allRecipes = data;
-    //     return next();
-    // })
-    // .catch(error => {
-    //     return next({
-    //         log: `Error in recipeController.getRecipe: ${error}`,
-    //         status: 500,
-    //         message: { err: 'Was not able to find recipe' }
-    //     });
-    // });
-}
+    return transformedMeals;
+};
+exports.insertRecipes = async (req, res) => {
+    try {
+        const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        const allMeals = [];
 
-module.exports = recipeController;
+        for (let letter of letters) {
+            const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`);
+            if (response.data.meals) {
+                allMeals.push(...response.data.meals);
+            }
+        }
+
+        const transformedData = transformDataForDB({ meals: allMeals });
+
+        //await Recipe.insertMany(transformedData);
+        res.status(200).json({ message: 'Recipes inserted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error inserting recipes', error });
+    }
+};
