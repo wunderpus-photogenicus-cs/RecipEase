@@ -9,6 +9,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const PORT = 3000;
+const cors = require('cors');
 
 //require in controllers and models;
 const recipesController = require('./controllers/recipesController');
@@ -46,6 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 /**
  * handle requests for static files
  */
+app.use(cors());
 app.use(express.static(path.resolve(__dirname, '../dist/index.html')))
 /**
  * define route handlers
@@ -60,7 +62,7 @@ app.get('/', recipesController.getAllRecipes, (req, res) => {
 })
 
 // send all the recipes from the collection
-app.get('/api/recipes', (req , res) => {
+app.use('/api/recipes', (req , res) => {
     console.log('sending recipes...')
     console.log(recipesDB);
     recipesDB.find({}).exec()
