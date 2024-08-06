@@ -18,7 +18,7 @@ const App = () => {
     const id = recipeId;
   return (
     <div>
-      <h1>Hello React</h1>
+      <h1>RecipEase</h1>
         <BrowserRouter>
             <Routes>
                 <Route path = '/' element = {<Landing handleSetRecipeId={handleSetRecipeId} />} />
@@ -54,4 +54,30 @@ const App = () => {
         </BrowserRouter>
     );
 };
+*/
+
+
+/* 
+RecipEase
+|- dist
+|- frontend
+|- node_modules
+|- server
+  |-controllers
+    |-receipesController.js
+    |-userController.js
+  |-models
+    |-recipesData.js
+    |-userData.js
+  |-server.js
+|- src
+  |-pages
+    |- Landing.jsx
+    |- Landing.scss
+    |- recipePage.jsx
+  |- App.scss
+  |- index.html
+  |- index.js
+|-.babelrc
+|-.package.json
 */
