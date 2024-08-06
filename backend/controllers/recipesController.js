@@ -1,4 +1,4 @@
-const Recipe = require('../models/recipesData.js'); // adjust the path as needed
+const Recipe = require('../models/recipesData.js');
 const axios = require('axios');
 
 const transformDataForDB = (data) => {
