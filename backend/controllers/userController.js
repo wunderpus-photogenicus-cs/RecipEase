@@ -72,10 +72,11 @@ const UserController = {
   // Update favorite recipes
   async updateFavorites(req, res) {
     try {
-      const { userId } = req.user;
-      const { recipeId } = req.body;
-      const user = await User.findById(userId);
+      const { id, recipeId } = req.body;
+
+      const user = await User.findById(id);
       const index = user.favoriteRecipes.indexOf(recipeId);
+
       if (index > -1) {
         user.favoriteRecipes.splice(index, 1); // Remove if already exists
       } else {
