@@ -19,6 +19,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    addFavorite: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/favorite`,
+        method: 'PATCH',
+        body: data,
+      }),
+    }),
     searchRecipeByName: builder.mutation({
       query: (data) => ({
         url: `${RECIPES_URL}/search`,
@@ -49,6 +56,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
+  useAddFavoriteMutation,
   useSearchRecipeByNameMutation,
   useAutoCompleteRecipeByIdMutation,
   useAutoCompleteRecipeByNameMutation,
