@@ -70,6 +70,11 @@ const UserController = {
     }
   },
 
+  async logout(req, res) {
+    res.clearCookie('token');
+    res.status(200).send('Logged out successfully');
+  },
+
   // Get user details along with favorite recipes
   async getUserDetails(req, res) {
     const id = req.userId;
