@@ -44,11 +44,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.resolve(__dirname, '../dist/index.html')));
 
+/**
+ * define route handlers
+ */
+// Get all recipes and insert into DB
+// http: //localhost:3000/
+app.post('/register', userController.register);
 
 
 app.use('/api/recipes', recipeRoutes);
-
-
 
 
 app.use((req, res) => res.sendStatus(404));
