@@ -8,7 +8,8 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-// import Button from '@mui/material/Button';
+import Button from '@mui/material/Button';
+import { Link } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Menu, MenuItem, Slide, useScrollTrigger } from '@mui/material';
 import { useState } from 'react';
@@ -85,6 +86,12 @@ export default function SearchAppBar() {
   // state for search function
   // const [searchTerm, setSearchTerm] = useState(null);
 
+  // state for login button on AppBar
+  const [loggedIn, setLoggedIn] = useState(null);
+
+  // ternary label for login button label
+  const loginButton = loggedIn ? 'Logout' : 'Login';
+
   // function to handle state as input is received from search bar on the AppBar
   // const handleState = (input) => {
   //   setSearchTerm(input);
@@ -115,15 +122,25 @@ export default function SearchAppBar() {
                 >
                   RecipEase
                 </Typography>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem oncClick={handleClose}>Home</MenuItem>
-                  <MenuItem onClick={handleClose}>Past Recipes</MenuItem>
-                  <MenuItem onClick={handleClose}>Favorite Recipes</MenuItem>
-                  <MenuItem onClick={handleClose}>List</MenuItem>
+                <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+                  <Link href="/" style={{ color: 'white', textDiscoloration: 'none' }}>
+                    <MenuItem onClick={handleClose}>Home</MenuItem>
+                  </Link>
+                  <Link href="/past" style={{ color: 'white', textDiscoloration: 'none' }}>
+                    <MenuItem href="/past" onClick={handleClose}>
+                      Past Recipes
+                    </MenuItem>
+                  </Link>
+                  <Link href="/favorite" style={{ color: 'white', textDiscoloration: 'none' }}>
+                    <MenuItem href="/favorite" onClick={handleClose}>
+                      Favorite Recipes
+                    </MenuItem>
+                  </Link>
+                  <Link href="/list" style={{ color: 'white', textDiscoloration: 'none' }}>
+                    <MenuItem href="/list" onClick={handleClose}>
+                      List
+                    </MenuItem>
+                  </Link>
                 </Menu>
                 <Search>
                   <SearchIconWrapper>
@@ -135,7 +152,9 @@ export default function SearchAppBar() {
                     // onChange={(e) => handleState(e)}
                   />
                 </Search>
-                {/* /*<Button color="inherit">Login</Button> */}
+                <Button href="/login" color="inherit">
+                  {loginButton}
+                </Button>
               </Toolbar>
             </AppBar>
           </Slide>
