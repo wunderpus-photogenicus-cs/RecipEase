@@ -20,7 +20,10 @@ const HomeScreen = () => {
   //     //should try inserting conditional if searchTerm is null
   //     element.strMeal === searchTerm
   // );
+
   // console.log('The recipe object is: ', recipeObj);
+
+  // change for commit
 
   return (
     <div className="home-screen-outer">
